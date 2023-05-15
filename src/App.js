@@ -1,16 +1,13 @@
 import React from 'react';
-import Person from "./pages/Person";
-import Plan from "./pages/Plan";
-import AddOns from "./pages/AddOns";
-import Finishing from "./pages/Finishing";
+import { Divider } from 'antd';
+import Main from "./components/Main/Main";
+
 const App = () => {
   return (
-    <div className="bg-red-400">
-      {/* <Person/> */}
-      {/* <Plan/> */}
-      {/* <AddOns/> */}
-      <Finishing/>
-    </div>
+    <>
+      <Main/>
+    </>
+
   )
 }
 

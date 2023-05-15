@@ -1,9 +1,7 @@
 import React from 'react';
-import Services3 from "../components/Services3";
-import bg_mobile from "../images/bg-sidebar-mobile.svg";
-import Buttons from "../components/Buttons";
+import congrats from "../images/icon-thank-you.svg"
 
-const AddOns = () => {
+const Thankyou = () => {
   return (
     <div className="bg-slate-50 max-h-screen overflow-hidden">
       
@@ -18,12 +16,12 @@ const AddOns = () => {
       <section className="px-5 relative bottom-28">
         <article className="mx-auto shadow-xl rounded-lg bg-white min-h-96 w-full">
             <div className="px-10 mx-auto pt-7 mb-2">
-              <h2 className="font-bold text-3xl text-blue-950">Pick add-ons</h2>
-              <p className="text-slate-400 pt-3">Add-ons help enhance your gaming experience</p>
+              <h2 className="font-bold text-3xl text-blue-950">Finishing up</h2>
+              <p className="text-slate-400 pt-3">Double-check everything looks OK before confirming</p>
             </div>
 
-            <div className="px-14 pb-10">
-                <Services3/>
+            <div className="px-10 pb-10">
+                <Finish/>
             </div>
 
         </article>
@@ -37,4 +35,4 @@ const AddOns = () => {
   )
 }
 
-export default AddOns
+export default Thankyou
