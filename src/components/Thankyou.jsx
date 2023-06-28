@@ -1,36 +1,18 @@
-import React from 'react';
-import congrats from "../images/icon-thank-you.svg"
-
+import tick from "../images/icon-thank-you.svg";
 const Thankyou = () => {
   return (
-    <div className="bg-slate-50 max-h-screen overflow-hidden">
-      
-      <Buttons/>
-      
-      <section>
-        <div className="w-full bg-red-500">
-            <img src={bg_mobile} alt="" className="object-contain w-full max-h-full" />
-          </div>
-      </section>
-
-      <section className="px-5 relative bottom-28">
-        <article className="mx-auto shadow-xl rounded-lg bg-white min-h-96 w-full">
-            <div className="px-10 mx-auto pt-7 mb-2">
-              <h2 className="font-bold text-3xl text-blue-950">Finishing up</h2>
-              <p className="text-slate-400 pt-3">Double-check everything looks OK before confirming</p>
-            </div>
-
-            <div className="px-10 pb-10">
-                <Finish/>
-            </div>
-
-        </article>
-          <div className="bg-red-400 relative">
-            <button className="px-6 py-2 rounded bg-sky-900 text-white absolute right-0 top-7">
-              Next Step
-            </button>
-          </div>
-      </section>
+    <div className="text-center flex flex-col justify-center items-center">
+        <div className="w-20">
+            <img src={tick} alt="thank you" className="object-cover" />
+        </div>
+        <div className="mt-10 mb-5">
+            <h2 className="font-bold text-2xl text-sky-950">Thank you!</h2>
+        </div>
+        <p className="text-gray-400 opacity-70">Thanks for confirming your subscription!
+            We hope you have fun using our platform. If 
+            you ever need support, please feel free to email us at 
+            support@loremgaming.com
+        </p>
     </div>
   )
 }

@@ -1,47 +1,59 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import Card from '../Card';
 import Buttons from '../Btn/Buttons';
 import Top from '../Top';
+import { BtnContext } from '../Context';
 
 import "./Main.css"
 
 const Main = () => {
-    const [currStep, setCurrStep] = useState(1)
-    const handleClick = (k)=>{
-        if(k===1){
-        setCurrStep((prev)=> (prev + 1))}
-        console.log("increased")
-        if(k===2){
-            setCurrStep((prev)=>(prev -1))
-            console.log("decreased")
-        }
-    }
+    const [currStep, setCurrStep] = useContext(BtnContext)
     const steps = ["Your Info", "Select Plan", "Add-Ons", "Summary"]
-    
+    const [complete, setComplete] = useState(false);
+       
   return (
-    <div className="">
+    <div className="md:flex md:justify-start md:max-w-4xl md:m-auto md:relative
+    md:shadow-lg md:shadow-gray-400 md:rounded-lg md:bg-white md:w-full">
         <Top/>
-        <div className="overflow-hidden">
-            <div className="flex align-center absolute top-10 mb-5 w-full justify-center ">
+        <div className="">
+            <div className="flex align-center absolute top-8 mb-5 w-full justify-center md:flex-col
+            md:left-10 md:gap-6 md:top-16">
                 {steps && steps.map((step, i)=>{
                     return(
-                        <div key={i} className="flex flex-col align-center w-16">
-                            <div className={`${currStep===i+1 ? "bg-sky-500" : ""} w-8 h-8 flex justify-center align-center rounded-full font-semibold pointer-events-none text-white border border-white`}>{i+1}</div>
+                        <div key={i} className="flex flex-col align-center w-16 md:flex-row md:w-fit md:gap-5">
+                            <div className={`${currStep===i+1 ? "bg-sky-500" : ""} w-8 h-8 flex justify-center align-center
+                             rounded-full font-semibold pointer-events-none text-white border border-white `}>{i+1}</div>
+                             <div className="md:flex flex-col hidden ">
+                                <h4 className="uppercase opacity-80 text-gray-300 text-sm">Step {i+1}</h4>
+                                <h3 className="text-white font-semibold uppercase text-sm">{step}</h3>
+
+                             </div>
                         </div>
                 )
                 })}
             </div>
         </div>
-        
-        <div className="mx-auto px-10 py-10 w-full">
+
+        <div className=" py-8 w-full relative flex flex-col items-center md:-top-12">
             <div className="">
-                <div className="w-56 h-56 absolute bg-red-400 rounded-md border border-black"></div>
-                <Card currStep={currStep}/>
+                <Card currStep={currStep} thanks={complete}/>
             </div>
-            <div className="flex items-center w-full translate-x-10 right-10 absolute bottom-20">
-                <Buttons onClick={()=>handleClick(2)} >Back</Buttons>
-                <Buttons onClick={()=>handleClick(1)} >Next Step</Buttons>
-            </div>
+           {!complete &&
+            <div className="flex items-center w-1/2 mx-auto fixed bottom-5 ml-auto md:absolute">
+             <Buttons onClick={ () => {
+                    currStep !== 1 && setCurrStep(i => i-1)
+                }}>Go Back
+            </Buttons>
+                
+                <Buttons
+                onClick={() => {
+                    currStep === steps.length ?
+                    setComplete(true) :
+                    setCurrStep(i => i +1)
+                }}
+                > {currStep === steps.length ? "Confirm" : "Next"}
+                </Buttons>
+            </div>}
         </div>
     </div>
     

@@ -1,12 +1,15 @@
 import React from 'react';
-import { Divider } from 'antd';
 import Main from "./components/Main/Main";
+import {BtnProvider} from './components/Context';
+
 
 const App = () => {
   return (
-    <>
-      <Main/>
-    </>
+    <div className=" md:bg-gray-100 md:h-[100vh] md:mt-auto md:flex ">
+    <BtnProvider>
+        <Main/>
+    </BtnProvider>
+    </div>
 
   )
 }

@@ -3,67 +3,53 @@ import Form from './Form';
 import Services from './Services/Services';
 import Billing from './Billing/Billings';
 import Finish from './Finish/Finish';
+import Thankyou from "./Thankyou";
+// context import
 
-const Card = ({currStep}) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [selectedOptions, setSelectedOptions] = useState([]);
-  const [selectDeal, setSelectDeal] = useState("Arcade");
-  const [isChecked, setIsChecked] = useState(Array(3).fill(null));
-  const [month, setMonth] = useState(true);
-  const [sub, setSub] = useState(1);
-  const [activeIndex, setActiveIndex] = useState(0)
-  
-  const handleSub = ()=>{
-    if(sub===1){
-      setSub(2)
-      setMonth(false)
+
+const Card = ({currStep, thanks}) => {
+  // set month as next
+  const [isMonth, setIsMonth] = useState(false);
+  const [purchase, setPurchase] = useState({service:"", billing:[]}); 
+  // const [inputs, setInputs] = useState({name:"", email:"", phone:""})
+
+  const addPurchase = (service) => {
+    setPurchase({...purchase, service})
+  }
+
+  const handleBilling = (title, mp, yp, id, index) => {
+    let newArr;
+    if (!purchase.billing.find(item => item.id === id)) {
+      newArr = [...purchase.billing, { addOn: title, mp: mp, yp: yp, id: id }];
+      // console.log("item not there, added", id);
     }
-    if(sub===2){
-      setSub(1)
-      setMonth(true)
+    else{
+      newArr = purchase.billing.filter((item, i) => item.id !== id)
+      // console.log("item there, deleted")
     }
-    console.log(sub)
-  }
-
-  const nameHandler = (e)=>{
-    setName(e.target.value)
-  }
-
-  const emailHandler = (e)=>{
-    setEmail(e.target.value)
-  }
-
-  const phoneHandler = (e)=>{
-    setPhone(e.target.value)
+    setPurchase({...purchase, billing:newArr})
   }
 
   const pageDisplay = ()=>{
     switch(currStep){
       case 1:
-        return <Form name={name}
-         email={email} 
-         phone={phone}
-         nameHandler={nameHandler} 
-         emailHandler={emailHandler} 
-         phoneHandler={phoneHandler}/>
+        return( 
+          <Form/>
+        )
       case 2:
-        return <Billing setActiveIndex={setActiveIndex} activeIndex={activeIndex} setSelectDeal={setSelectDeal} setMonth={setMonth} handleSub={handleSub} sub={sub} setSub={setSub}/>
+        return <Billing purchase={purchase} addPurchase={addPurchase} isMonth={isMonth} setIsMonth={setIsMonth}/>
       case 3:
-        return <Services isChecked={isChecked} setIsChecked={setIsChecked} month={month}
-        selectedOptions={selectedOptions} setSelectedOptions={setSelectedOptions}/>
+        return <Services isMonth={isMonth} handleBilling={handleBilling} purchase={purchase}/>
       case 4:
-        return <Finish services={selectedOptions} deal={selectDeal} month={month}/>
-      default:
-        return null
+        return <Finish services={purchase.billing} deal={purchase.service} isMonth={isMonth}/>
   }
   }
   return (
     <>
-      <article className="mx-auto max-w-xl shadow-xl rounded-lg bg-white py-6 mt-16 relative ">
-        <div className="px-7 pb-10 ">
-            {pageDisplay()}
+      <article className="mx-auto max-w-lg shadow-xl rounded-lg bg-white py-6 mt-14 relative max-h-[69vh]
+      md:shadow-none md:bg-none md:min-w-[30vw] md:bg-transparent ">
+        <div className="px-5 pb-10 md:min-h-[55vh] ">
+            {!thanks ? pageDisplay() : <Thankyou/>}
         </div>
       </article>
       
